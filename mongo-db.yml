@@ -1,0 +1,14 @@
+name: mongo-poc
+services:
+  mongodb:
+    image: mongo:7.0.7
+    container_name: mongodb-container
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_SERVER=mongodb
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    healthcheck:
+      test: ['CMD' , 'echo', '''db.runCommand("ping").ok''', '|', 'mongo', 'localhost:27019/test', '--quiet']
